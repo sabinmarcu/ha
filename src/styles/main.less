@@ -1,0 +1,222 @@
+
+@import (inline) "normalize.css/normalize.css";
+
+@mapsize: 90vh;
+@headersize: (100vh - @mapsize) / 2;
+@searchradius: 4px;
+
+body, html {
+    font-size: 10pt;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+header, footer {
+    height: @headersize;
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    justify-content: center;
+
+    padding: 0 10px;
+
+    > section {
+        width: 100%;
+
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+        justify-items: stretch;
+
+        nav {
+            flex: 1;
+            border: solid 1px #ccc;
+            border-radius: 2px;
+            position: relative;
+            > label {
+                font-size: 12pt;
+                font-weight: normal;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                padding: 4px 7px;
+                display: inline-block;
+                cursor: pointer;
+                &:after {
+                    float: right;
+                    content: "";
+                    border: solid 3px black;
+                    height: 5px;
+                    width: 5px;
+                    display: inline-block;
+                    border-top: none;
+                    border-right: none;
+                    transform: rotate(-45deg) translateY(2.5px) translateX(-2.5px); 
+                }
+            }
+            .nav--list-wrapper {
+                z-index: -1;
+                position: absolute;
+                left: -6px;
+                top: -6px;
+                width: 150%;
+                background: white;
+                opacity: 0;
+                margin: 0;
+                padding: 20px 0;
+                border: solid 1px #ccc;
+                transition: all 0.5s ease-in-out;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+                transform: translateY(-15px);
+                ul {
+                    max-height: 200px;
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    overflow: auto;
+                    li {
+                        padding: 7px 10px;
+                        background: white;
+                        color: #444;
+                        margin: 2px 0;
+                        transition: all 0.5s ease-in-out;
+                        cursor: pointer;
+                        &.checkself {
+                            label:before {
+                                content: "\2713";
+                                margin-right: 5px;
+                            }
+                            input:checked label:before {
+                                content: "merge";
+                            }
+                        }
+                        label {
+                            width: 100%;
+                            height: 100%;
+                            display: inline-block;
+                        }
+                        &:hover {
+                            background: #ccc;
+                            color: black;
+                        }
+                    }   
+                }
+            }
+            &:last-of-type .nav--list-wrapper {
+                left: auto;
+                right: -6px;
+            }
+            input {
+                position: fixed;
+                top: 10000px;
+            }
+            input:focus {
+                ~ .nav--list-wrapper {
+                    z-index: 1;
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+        }
+        .search {
+            flex: 5;
+            display: flex;
+            height: 100%;
+            margin: 0 10px;
+            border-radius: 4px;
+            border: solid 1px #ccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            input, .go {
+                padding: 0;
+                margin: 0;
+                border: none;
+                outline: none;
+                background: white;
+            }
+            input {
+                flex: 1;
+                border-right: solid 1px #ccc;
+                text-indent: 10px;
+            }
+            .go {
+                flex: 0 0 50px;
+                height: 25px;
+                width: 50px;
+                text-align: center;
+            }
+        }
+    }
+    > nav {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        justify-items: center;
+
+        flex: 1 1 100%;
+        color: #888;
+        padding: 4px 0;
+        font-size: 8pt;
+        ul {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            justify-items: flex-start;
+            margin: 0;
+            padding: 0;
+            &:last-of-type {
+                justify-items: flex-end;
+            }
+            li {
+                display: inline-block;
+                padding: 0 3px;
+                border-right: solid 1px #888;
+                cursor: pointer;
+                color: #888;
+                &:last-of-type {
+                    border: none;
+                }
+                &:hover {
+                    color: #444;
+                }
+            }
+        }
+    }
+}
+header {
+    top: 0;
+}
+footer {
+    bottom: 0;
+}
+section.content {
+    background: black;
+    height: @mapsize;
+    margin: @headersize 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}

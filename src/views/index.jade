@@ -1,0 +1,77 @@
+extends layout
+
+block content
+    header
+        section.container
+            nav
+                label(for="nav--configure") Configure
+                span.nav--wrapper
+                    input#nav--configure
+                    div.nav--list-wrapper
+                        ul
+                            li 
+                                label(for="nav--configure") Wellcome
+                            li
+                                label(for="nav--configure") Documents
+                            li
+                                label(for="nav--configure") Sustainable Design Ideas
+                            li
+                                label(for="nav--configure") Legislation Monitor
+                            li
+                                label(for="nav--configure") Wales Low Zero Carbon Hub
+                            li
+                                label(for="nav--configure") Professional Networking
+                            li
+                                label(for="nav--configure") Recent Updates
+                            li
+                                label(for="nav--configure") BIM
+                            li
+                                label(for="nav--configure") Research and Development
+                            li
+                                label(for="nav--configure") Environmental Systems
+                            li
+                                label(for="nav--configure") Search
+                            li
+                                label(for="nav--configure") Forum
+                            li
+                                label(for="nav--configure") Event Calendar
+                            li
+                                label(for="nav--configure") News
+                            li
+                                label(for="nav--configure") Environmental Technology Skillz
+                            li
+                                label(for="nav--configure") Sustainable Sourcing
+                            li
+                                label(for="nav--configure") Sustainable Design Tools
+                            li
+                                label(for="nav--configure") EU
+                            li
+                                label(for="nav--configure") Buildings and Infrastructure
+            div.search
+                input(type="search" placeholder="Search: ")
+                button.go Go
+            nav 
+                label(for="nav--favourites") My Favourites
+                span.nav--wrapper
+                    input#nav--favourites
+                    div.nav--list-wrapper
+                        ul
+                            li You must sign in in order to view your favourites! 
+
+    section.content
+        img(src="images/mapstock.jpg")
+
+    footer
+        nav.container
+            ul.left
+                li Home
+                li Contact
+                li About
+                li FAQ
+            ul.right
+                li Login
+                li Create Account
+                li Why register
+                li Disclaimer, Privacy &amp; Cookie Information
+        nav.container
+            | Cookie info
