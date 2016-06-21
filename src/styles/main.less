@@ -1,8 +1,8 @@
 
 @import (inline) "normalize.css/normalize.css";
 
-@mapsize: 90vh;
-@headersize: (100vh - @mapsize) / 2;
+@mapsize: 80vh;
+@headersize: (100vh - @mapsize) / 4;
 @searchradius: 4px;
 
 body, html {
@@ -31,6 +31,19 @@ header, footer {
 
     padding: 0 10px;
 
+    > * {
+        z-index: 5;
+    }
+
+    .slider {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 0;
+    }
+
     > section {
         width: 100%;
 
@@ -39,6 +52,9 @@ header, footer {
         align-items: center;
         justify-content: center;
         justify-items: stretch;
+
+        flex: 1 1 100%;
+        min-height: 50%;
 
         nav {
             flex: 1;
@@ -55,6 +71,7 @@ header, footer {
                 padding: 4px 7px;
                 display: inline-block;
                 cursor: pointer;
+                background: white;
                 &:after {
                     float: right;
                     content: "";
@@ -64,7 +81,7 @@ header, footer {
                     display: inline-block;
                     border-top: none;
                     border-right: none;
-                    transform: rotate(-45deg) translateY(2.5px) translateX(-2.5px); 
+                    transform: rotate(-45deg) translateY(2.5px) translateX(-2.5px);
                 }
             }
             .nav--list-wrapper {
@@ -87,6 +104,7 @@ header, footer {
                     padding: 0;
                     list-style: none;
                     overflow: auto;
+                    z-index: 9;
                     li {
                         padding: 7px 10px;
                         background: white;
@@ -103,7 +121,7 @@ header, footer {
                             background: #ccc;
                             color: black;
                         }
-                    }   
+                    }
                 }
             }
             &:last-of-type .nav--list-wrapper {
@@ -176,7 +194,6 @@ header, footer {
                 padding: 0 3px;
                 border-right: solid 1px #888;
                 cursor: pointer;
-                color: #888;
                 &:last-of-type {
                     border: none;
                 }
@@ -189,14 +206,31 @@ header, footer {
 }
 header {
     top: 0;
+    height: 3 * @headersize;
+    > nav {
+        color: #ddd;
+        text-shadow: 0 1px 1px black;
+        ul li {
+            border-right-color: #ddd;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
 }
 footer {
     bottom: 0;
 }
 section.content {
     background: black;
-    height: @mapsize;
-    margin: @headersize 0;
+    // height: @mapsize;
+    // margin: (@headersize * 2) 0 @headersize;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: @headersize * 3;
+    bottom: @headersize;
+
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -214,4 +248,35 @@ section.content {
     max-width: 1000px;
     margin: 0 auto;
     width: 100%;
+}
+
+// crude desktop
+@media (min-width: 1000px) {
+    
+}
+// crude tablet
+@media (max-width: 1000px) and (min-width: 700px) {
+    header > section nav > label {
+        font-size: 10pt;
+    }
+}
+// crude phone
+@media (max-width: 700px) {
+    header > section nav > label {
+        font-size: 8pt;
+    }
+}
+// crude tablet and phone
+@media (max-width: 1000px) {
+    @mapsize: 90vh;
+    @headersize: (100vh - @mapsize) / 3;
+    header {
+        height: @headersize * 2;
+    }
+    section.content {
+        top: @headersize * 2;
+    }
+    footer {
+        height: @headersize;
+    }
 }
