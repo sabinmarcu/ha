@@ -452,6 +452,19 @@ footer {
       justify-content: center;
   padding: 0 10px;
 }
+header > *,
+footer > * {
+  z-index: 5;
+}
+header .slider,
+footer .slider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 0;
+}
 header > section,
 footer > section {
   width: 100%;
@@ -464,6 +477,9 @@ footer > section {
   -ms-flex-pack: center;
       justify-content: center;
   justify-items: stretch;
+  -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
+  min-height: 50%;
 }
 header > section nav,
 footer > section nav {
@@ -484,6 +500,7 @@ footer > section nav > label {
   padding: 4px 7px;
   display: inline-block;
   cursor: pointer;
+  background: white;
 }
 header > section nav > label:after,
 footer > section nav > label:after {
@@ -522,6 +539,7 @@ footer > section nav .nav--list-wrapper ul {
   padding: 0;
   list-style: none;
   overflow: auto;
+  z-index: 9;
 }
 header > section nav .nav--list-wrapper ul li,
 footer > section nav .nav--list-wrapper ul li {
@@ -635,7 +653,6 @@ footer > nav ul li {
   padding: 0 3px;
   border-right: solid 1px #888;
   cursor: pointer;
-  color: #888;
 }
 header > nav ul li:last-of-type,
 footer > nav ul li:last-of-type {
@@ -647,14 +664,28 @@ footer > nav ul li:hover {
 }
 header {
   top: 0;
+  height: 15vh;
+}
+header > nav {
+  color: #ddd;
+  text-shadow: 0 1px 1px black;
+}
+header > nav ul li {
+  border-right-color: #ddd;
+}
+header > nav ul li:hover {
+  color: #fff;
 }
 footer {
   bottom: 0;
 }
 section.content {
   background: black;
-  height: 90vh;
-  margin: 5vh 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15vh;
+  bottom: 5vh;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: row nowrap;
@@ -676,4 +707,25 @@ section.content iframe {
   max-width: 1000px;
   margin: 0 auto;
   width: 100%;
+}
+@media (max-width: 1000px) and (min-width: 700px) {
+  header > section nav > label {
+    font-size: 10pt;
+  }
+}
+@media (max-width: 700px) {
+  header > section nav > label {
+    font-size: 8pt;
+  }
+}
+@media (max-width: 1000px) {
+  header {
+    height: 6.66666667vh;
+  }
+  section.content {
+    top: 6.66666667vh;
+  }
+  footer {
+    height: 3.33333333vh;
+  }
 }
