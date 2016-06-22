@@ -1,5 +1,8 @@
+
+$slides         :4;
+$slideDuration  :4s; /* one slide */
+
 $sbs    :7px;
-$slides :5;
 $ap     :100 / $slides;
 $apf    :$ap - 1;
 
@@ -31,7 +34,7 @@ $apf    :$ap - 1;
 
 @mixin anim() {
     transition: all 0.5s ease-in-out;
-    animation-duration: #{$slides * 3}s;
+    animation-duration: #{$slides * $slideDuration};
     animation-iteration-count: infinite;
     animation-fill-mode: forward;
 }
@@ -100,6 +103,13 @@ $actions: activate, deactivate;
     }
 }
 
+@mixin animStep($selector, $iteration, $j) {
+        @if $iteration == $j {
+            @include pick(nth($actions, 1), $selector);
+        } @else {
+            @include pick(nth($actions, 2), $selector);
+        }   
+}
 @mixin animKeyframes($selector, $iteration) {
     @keyframes anim-#{$selector}-#{$iteration} {
         @for $j from 0 through $slides - 1 {
@@ -111,14 +121,13 @@ $actions: activate, deactivate;
                         @include pick(nth($actions, 2), $selector);
                     }   
                 }
-            }
-            #{$j * $ap}% {
-                @if $iteration == $j {
-                    @include pick(nth($actions, 1), $selector);
-                } @else {
-                    @include pick(nth($actions, 2), $selector);
-                }   
-            }
+                #{$j * $ap}% {
+                    @include animStep($selector, $iteration, $j);
+                }
+            }       
+        }
+        100% {
+            @include animStep($selector, $iteration, $slides - 1);
         }
     }
 }
