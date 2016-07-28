@@ -6,7 +6,7 @@ var browserSync = require('browser-sync');
 // Load plugins
 var $ = require('gulp-load-plugins')({
     rename: {
-            'gulp-ruby-sass': 'sass'    
+            'gulp-ruby-sass': 'sass'
         }
     });
 
@@ -56,7 +56,11 @@ gulp.task('less', function() {
     })
 
 gulp.task('styles', ['scss', 'less']);
-
+gulp.task('scripts', function() {
+    return gulp.src(['src/scripts/**/*.js'])
+        .pipe(gulp.dest('build'))
+        .pipe(browserSync.reload({stream: true}));
+});
 
 gulp.task('views', function(){
     return gulp.src([
@@ -96,6 +100,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch('src/**/*.less', ['styles']);
     gulp.watch('src/images/**/*', ['images']);
     gulp.watch('src/**/*.jade', ['views']);
+    gulp.watch('src/**/*.js', ['scripts']);
 
     gulp.start('browser-sync');
 });
@@ -115,7 +120,7 @@ gulp.task('clean', function(cb) {
 });
 
 
-gulp.task('build', ['styles', 'views', 'images']);
+gulp.task('build', ['styles', 'views', 'images', 'scripts']);
 
 
 gulp.task('default', ['clean'], function() {
