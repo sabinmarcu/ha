@@ -5,14 +5,14 @@ block content
         include slider.html
         section.container
             nav
-                label(for="nav--configure") 
+                label(for="nav--configure")
                     span.notmobile Configure
                     span.mobile &#9881;
                 span.nav--wrapper
                     input#nav--configure
                     div.nav--list-wrapper
                         ul
-                            li 
+                            li
                                 label(for="nav--configure") Wellcome
                             li
                                 label(for="nav--configure") Documents
@@ -52,18 +52,18 @@ block content
                                 label(for="nav--configure") Buildings and Infrastructure
             div.search
                 input(type="search" placeholder="Search: ")
-                button.go 
+                button.go
                     span.notmobile Go
                     span.mobile &#128269;
-            nav 
-                label(for="nav--favourites") 
+            nav
+                label(for="nav--favourites")
                     span.notmobile My Favourites
                     span.mobile &#9733;
                 span.nav--wrapper
                     input#nav--favourites
                     div.nav--list-wrapper
                         ul
-                            li You must sign in in order to view your favourites! 
+                            li You must sign in in order to view your favourites!
             nav.row.container
                 label(for="nav--menu")
                     span.mobile &#8942;
@@ -81,8 +81,7 @@ block content
                                 li Create Account
                                 li Why register
 
-    section.content
-        iframe(frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=here&output=embed")
+    section.content#google-map
 
     footer
         nav.row.container
@@ -90,3 +89,6 @@ block content
                 li Disclaimer, Privacy &amp; Cookie Information
         nav.row.container
             | Cookie info
+
+    script(src="js/scripts.js")
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwC-BzmC2WQwxqWjqCl0ROiloWG68UUVs&callback=initMap")

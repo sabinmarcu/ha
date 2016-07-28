@@ -1,12 +1,13 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp = require('gulp'),
+    concat = require('gulp-concat');
 var browserSync = require('browser-sync');
 
 // Load plugins
 var $ = require('gulp-load-plugins')({
     rename: {
-            'gulp-ruby-sass': 'sass'    
+            'gulp-ruby-sass': 'sass'
         }
     });
 
@@ -82,6 +83,14 @@ gulp.task('images', function() {
         .pipe(gulp.dest('build/images'));
 });
 
+gulp.task('concatScripts', function() {
+    return gulp.src(['src/js/maps.js'])
+            .pipe(concat('scripts.js'))
+            .on('error', $.util.log)
+            .pipe(gulp.dest('build/js'))
+            .pipe(browserSync.reload({stream: true}));
+});
+
 
 gulp.task('browser-sync', function() {
     browserSync({
@@ -96,6 +105,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch('src/**/*.less', ['styles']);
     gulp.watch('src/images/**/*', ['images']);
     gulp.watch('src/**/*.jade', ['views']);
+    gulp.watch('src/**/*.js', ['concatScripts']);
 
     gulp.start('browser-sync');
 });
@@ -115,7 +125,7 @@ gulp.task('clean', function(cb) {
 });
 
 
-gulp.task('build', ['styles', 'views', 'images']);
+gulp.task('build', ['styles', 'views', 'images', 'concatScripts']);
 
 
 gulp.task('default', ['clean'], function() {
