@@ -1,10 +1,10 @@
 'use strict';
 
 var gulp = require('gulp'),
-    concat = require('gulp-concat'),
+    concat = require('gulp-concat-multi'),
     browserSync = require('browser-sync'),
     sourcemaps = require('gulp-sourcemaps'),
-    bower = require('gulp-bower'),
+    bower = require('main-bower-files'),
     babel = require('gulp-babel');
 
 // Load plugins
@@ -86,27 +86,26 @@ gulp.task('images', function() {
         .pipe(gulp.dest('build/images'));
 });
 
-gulp.task('bower', function() {
-    return bower('bower_components')
-        .pipe(gulp.dest('build/js'))
-        .pipe(browserSync.reload({stream: true}));
-});
-
 gulp.task('scripts', function() {
-    return gulp.src(['node_modules/babel-polyfill/dist/polyfill.js', 'src/js/**/*.js'])
+    return concat({
+        "scripts.js": [
+            'src/js/**/*.js',
+        ],
+        "vendor.js": [
+            'node_modules/babel-polyfill/dist/polyfill.js',
+            'src/vendor/**/*.js',
+        ],
+        "bower.js": bower()
+    })
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['es2015', 'stage-0']
-            // plugins: ['transform-runtime']
         }))
-        .pipe(concat('scripts.js'))
         .pipe(sourcemaps.write('.'))
         .on('error', $.util.log)
         .pipe(gulp.dest('build/js'))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(browserSync.reload({stream: true}))
 });
-
-gulp.task('js', ['bower', 'scripts']);
 
 
 gulp.task('browser-sync', function() {
@@ -142,7 +141,7 @@ gulp.task('clean', function(cb) {
 });
 
 
-gulp.task('build', ['styles', 'views', 'images', 'js']);
+gulp.task('build', ['styles', 'views', 'images', 'scripts']);
 
 
 gulp.task('default', ['clean'], function() {
