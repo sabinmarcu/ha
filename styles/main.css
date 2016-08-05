@@ -1,0 +1,637 @@
+.verticalMenu {
+  -ms-flex: 1;
+      flex: 1;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  position: relative;
+}
+.verticalMenu > label {
+  font-size: 12pt;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  padding: 4px 7px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  cursor: pointer;
+  background: white;
+  border-radius: 4px;
+}
+.verticalMenu > label:after {
+  float: right;
+  content: "";
+  border: solid 3px black;
+  height: 5px;
+  width: 5px;
+  display: inline-block;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.verticalMenu .nav--list-wrapper {
+  z-index: -1;
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 150%;
+  background: white;
+  opacity: 0;
+  margin: 0;
+  padding: 20px 0;
+  border: solid 1px #ccc;
+  transition: all 0.5s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  -webkit-transform: translateY(-15px);
+          transform: translateY(-15px);
+}
+.verticalMenu .nav--list-wrapper > ul,
+.verticalMenu .nav--list-wrapper > .nav-list-inner-wrapper {
+  max-height: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: auto;
+}
+.verticalMenu .nav--list-wrapper > ul li,
+.verticalMenu .nav--list-wrapper > .nav-list-inner-wrapper li {
+  padding: 7px 10px;
+  background: white;
+  color: #444;
+  margin: 2px 0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+.verticalMenu .nav--list-wrapper > ul li label,
+.verticalMenu .nav--list-wrapper > .nav-list-inner-wrapper li label {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+.verticalMenu .nav--list-wrapper > ul li:hover,
+.verticalMenu .nav--list-wrapper > .nav-list-inner-wrapper li:hover {
+  background: #ccc;
+  color: black;
+}
+.verticalMenu:last-of-type .nav--list-wrapper {
+  left: auto;
+  right: -6px;
+}
+.verticalMenu input {
+  position: fixed;
+  top: 10000px;
+}
+.verticalMenu input:focus ~ .nav--list-wrapper {
+  z-index: 9;
+  opacity: 1;
+  -webkit-transform: none !important;
+          transform: none !important;
+}
+body,
+html {
+  font-size: 10pt;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+header,
+footer {
+  height: 5vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  justify-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  padding: 0 10px;
+}
+header > *,
+footer > * {
+  z-index: 5;
+}
+header .slider,
+footer .slider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 0;
+}
+header > section,
+footer > section {
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  justify-items: stretch;
+  -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
+  min-height: 50%;
+}
+header > section.container,
+footer > section.container {
+  z-index: 7;
+}
+header > section nav:not(.row),
+footer > section nav:not(.row) {
+  -ms-flex: 1;
+      flex: 1;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  position: relative;
+}
+header > section nav:not(.row) > label,
+footer > section nav:not(.row) > label {
+  font-size: 12pt;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  padding: 4px 7px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  cursor: pointer;
+  background: white;
+  border-radius: 4px;
+}
+header > section nav:not(.row) > label:after,
+footer > section nav:not(.row) > label:after {
+  float: right;
+  content: "";
+  border: solid 3px black;
+  height: 5px;
+  width: 5px;
+  display: inline-block;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+header > section nav:not(.row) .nav--list-wrapper,
+footer > section nav:not(.row) .nav--list-wrapper {
+  z-index: -1;
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 150%;
+  background: white;
+  opacity: 0;
+  margin: 0;
+  padding: 20px 0;
+  border: solid 1px #ccc;
+  transition: all 0.5s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  -webkit-transform: translateY(-15px);
+          transform: translateY(-15px);
+}
+header > section nav:not(.row) .nav--list-wrapper > ul,
+footer > section nav:not(.row) .nav--list-wrapper > ul,
+header > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper,
+footer > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper {
+  max-height: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: auto;
+}
+header > section nav:not(.row) .nav--list-wrapper > ul li,
+footer > section nav:not(.row) .nav--list-wrapper > ul li,
+header > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper li,
+footer > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper li {
+  padding: 7px 10px;
+  background: white;
+  color: #444;
+  margin: 2px 0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+header > section nav:not(.row) .nav--list-wrapper > ul li label,
+footer > section nav:not(.row) .nav--list-wrapper > ul li label,
+header > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper li label,
+footer > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper li label {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+header > section nav:not(.row) .nav--list-wrapper > ul li:hover,
+footer > section nav:not(.row) .nav--list-wrapper > ul li:hover,
+header > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper li:hover,
+footer > section nav:not(.row) .nav--list-wrapper > .nav-list-inner-wrapper li:hover {
+  background: #ccc;
+  color: black;
+}
+header > section nav:not(.row):last-of-type .nav--list-wrapper,
+footer > section nav:not(.row):last-of-type .nav--list-wrapper {
+  left: auto;
+  right: -6px;
+}
+header > section nav:not(.row) input,
+footer > section nav:not(.row) input {
+  position: fixed;
+  top: 10000px;
+}
+header > section nav:not(.row) input:focus ~ .nav--list-wrapper,
+footer > section nav:not(.row) input:focus ~ .nav--list-wrapper {
+  z-index: 9;
+  opacity: 1;
+  -webkit-transform: none !important;
+          transform: none !important;
+}
+header > section .search,
+footer > section .search {
+  -ms-flex: 5;
+      flex: 5;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  margin: 0 10px;
+  border-radius: 4px;
+  border: solid 1px #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+header > section .search input,
+footer > section .search input,
+header > section .search .go,
+footer > section .search .go {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: white;
+}
+header > section .search input,
+footer > section .search input {
+  -ms-flex: 1;
+      flex: 1;
+  border-right: solid 1px #ccc;
+  text-indent: 10px;
+}
+header > section .search .go,
+footer > section .search .go {
+  -ms-flex: 0 0 50px;
+      flex: 0 0 50px;
+  min-height: 25px;
+  max-width: 50px;
+  text-align: center;
+}
+header nav.row,
+footer nav.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  justify-items: center;
+  color: #888;
+  padding: 4px 0;
+  font-size: 8pt;
+}
+header nav.row ul,
+footer nav.row ul {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  justify-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+header nav.row ul:last-of-type,
+footer nav.row ul:last-of-type {
+  justify-items: flex-end;
+}
+header nav.row ul li,
+footer nav.row ul li {
+  display: inline-block;
+  padding: 0 3px;
+  border-right: solid 1px #888;
+  cursor: pointer;
+}
+header nav.row ul li:last-of-type,
+footer nav.row ul li:last-of-type {
+  border: none;
+}
+header nav.row ul li:hover,
+footer nav.row ul li:hover {
+  color: #444;
+}
+header {
+  top: 0;
+  height: 15vh;
+}
+header > nav {
+  color: white;
+  font-weight: bold;
+  text-shadow: 0px 1px 2px black;
+}
+header > nav ul li {
+  border-right-color: #ddd;
+}
+header > nav ul li:hover {
+  color: #fff;
+}
+footer {
+  bottom: 0;
+}
+section.content {
+  background: black;
+  height: 80vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15vh;
+  bottom: 5vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+section.content iframe {
+  width: 100%;
+  height: 100%;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
+  z-index: 1;
+}
+@media (max-width: 1000px) and (min-width: 700px) {
+  header > section nav > label {
+    font-size: 10pt;
+  }
+}
+@media (max-width: 1000px) {
+  header {
+    height: 6.66666667vh;
+  }
+  section.content {
+    top: 6.66666667vh;
+    bottom: 3.33333333vh;
+    height: 90vh;
+  }
+  footer {
+    height: 3.33333333vh;
+  }
+}
+@media (min-width: 700px) {
+  header .mobile {
+    display: none;
+  }
+  header nav.row {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0px 1px 2px black;
+    font-size: 8pt;
+  }
+  header nav.row ul li {
+    border-right-color: #ddd;
+  }
+  header nav.row ul li:hover {
+    color: #fff;
+  }
+  header nav.row .nav--wrapper,
+  header nav.row .nav--list-wrapper,
+  header nav.row .nav--list-inner-wrapper {
+    width: 100%;
+    height: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    justify-items: center;
+  }
+  header nav.row label,
+  header nav.row input {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  header {
+    height: 5vh;
+  }
+  section.content {
+    top: 5vh;
+    bottom: 5vh;
+    height: 90vh;
+  }
+  footer {
+    height: 5vh;
+  }
+  header nav.row {
+    -ms-flex: 1;
+        flex: 1;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    position: relative;
+  }
+  header nav.row > label {
+    font-size: 12pt;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    padding: 4px 7px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    cursor: pointer;
+    background: white;
+    border-radius: 4px;
+  }
+  header nav.row > label:after {
+    float: right;
+    content: "";
+    border: solid 3px black;
+    height: 5px;
+    width: 5px;
+    display: inline-block;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+  }
+  header nav.row .nav--list-wrapper {
+    z-index: -1;
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    width: 150%;
+    background: white;
+    opacity: 0;
+    margin: 0;
+    padding: 20px 0;
+    border: solid 1px #ccc;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+  header nav.row .nav--list-wrapper > ul,
+  header nav.row .nav--list-wrapper > .nav-list-inner-wrapper {
+    max-height: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+  }
+  header nav.row .nav--list-wrapper > ul li,
+  header nav.row .nav--list-wrapper > .nav-list-inner-wrapper li {
+    padding: 7px 10px;
+    background: white;
+    color: #444;
+    margin: 2px 0;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+  }
+  header nav.row .nav--list-wrapper > ul li label,
+  header nav.row .nav--list-wrapper > .nav-list-inner-wrapper li label {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+  header nav.row .nav--list-wrapper > ul li:hover,
+  header nav.row .nav--list-wrapper > .nav-list-inner-wrapper li:hover {
+    background: #ccc;
+    color: black;
+  }
+  header nav.row:last-of-type .nav--list-wrapper {
+    left: auto;
+    right: -6px;
+  }
+  header nav.row input {
+    position: fixed;
+    top: 10000px;
+  }
+  header nav.row input:focus ~ .nav--list-wrapper {
+    z-index: 9;
+    opacity: 1;
+    -webkit-transform: none !important;
+            transform: none !important;
+  }
+  header {
+    padding: 0;
+    -ms-flex-align: stretch;
+        align-items: stretch;
+    -ms-flex-line-pack: stretch;
+        align-content: stretch;
+  }
+  header .slider {
+    display: none;
+  }
+  header .notmobile {
+    display: none;
+  }
+  header > section nav,
+  header > section nav:not(.row),
+  header > section .search {
+    height: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    border: solid 1px #ccc;
+    border-right: none !important;
+    border-top: none !important;
+    position: static !important;
+    border-radius: 0 !important;
+  }
+  header > section nav:first-child,
+  header > section nav:not(.row):first-child,
+  header > section .search:first-child {
+    border-left: none;
+  }
+  header > section .search {
+    margin: 0;
+    -ms-flex: 10;
+        flex: 10;
+  }
+  header > section nav,
+  header > section nav:not(.row) {
+    margin: 0;
+  }
+  header > section nav label:after,
+  header > section nav:not(.row) label:after {
+    display: none !important;
+  }
+  header > section nav .nav--list-wrapper,
+  header > section nav:not(.row) .nav--list-wrapper {
+    left: 0 !important;
+    right: 0 !important;
+    top: 5vh !important;
+    width: auto !important;
+    -webkit-transform: translateY(-110%) !important;
+            transform: translateY(-110%) !important;
+    border-top: none !important;
+    font-size: 10pt !important;
+  }
+  header > section nav .nav--list-wrapper > ul,
+  header > section nav:not(.row) .nav--list-wrapper > ul,
+  header > section nav .nav--list-wrapper .nav--list-inner-wrapper,
+  header > section nav:not(.row) .nav--list-wrapper .nav--list-inner-wrapper {
+    max-height: 90vh;
+  }
+  header > section nav ul,
+  header > section nav:not(.row) ul {
+    display: block !important;
+  }
+  header > section nav ul li,
+  header > section nav:not(.row) ul li {
+    padding: 7px 10px !important;
+    background: white;
+    color: #444;
+    display: block !important;
+    border: none !important;
+    margin: 2px 0 !important;
+    transition: all 0.5s ease-in-out;
+  }
+  header > section nav ul li:hover,
+  header > section nav:not(.row) ul li:hover {
+    background: #ccc;
+    color: black;
+  }
+}
