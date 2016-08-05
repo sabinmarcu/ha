@@ -1,44 +1,57 @@
-var map;
+const endpoint = "http://131.251.176.109:8082/Data/query?query=PREFIX%20wis%3A<http%3A%2F%2Fwww.WISDOM.org%2FWISDOMontology%23>%0APREFIX%20rdf%3A<http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23>%0ASELECT%20%20%3FXcoord_US%20%3FYcoord_US%20%3FXcoord_DS%20%3FYcoord_DS%0AWHERE%20%7B%20%0A%3FURI%20wis%3AhasUpstreamNode%20%3FUSnode%20.%0A%3FUSnode%20wis%3AhasXcoord%20%3FXcoord_US%20.%0A%3FUSnode%20wis%3AhasYcoord%20%3FYcoord_US%20.%0A%3FURI%20wis%3AhasDownstreamNode%20%3FDSnode%20.%0A%3FDSnode%20wis%3AhasXcoord%20%3FXcoord_DS%20.%0A%3FDSnode%20wis%3AhasYcoord%20%3FYcoord_DS%20.%0A%7D";
+const randomColorChannel = () => parseInt(Math.random() * 256).toString(16);
+const randomColor = () => `#${randomColorChannel()}${randomColorChannel()}${randomColorChannel()}`;
 
-function initMap() {
-    var chicago = new google.maps.LatLng(41.850, -87.650);
+async function initMap() {
+    const geocoder = new google.maps.Geocoder();
 
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
-    var geocoder = new google.maps.Geocoder();
-
-    map = new google.maps.Map(document.getElementById('google-map'), {
-        center: chicago,
-        zoom: 18
-    });
-
-    directionsDisplay.setMap(map);
-
-    var stringToLatLngPlaces = function(str, cb) {
-        geocoder.geocode({'address': str}, function(results, status) {
-            if (status === 'OK') {
-                var place = results[0].geometry.location;
-                cb && cb(place);
-            }
-        });
-    }
-    
-    stringToLatLngPlaces("chicago", function(start) {
-        stringToLatLngPlaces("new york", function(end) {
-            var request = {
-                origin: start,
-                destination: end,
-                travelMode: google.maps.TravelMode.DRIVING
-            };
-
-            directionsService.route(request, function(result, status) {
-                console.log(status, result);
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(result);
+    // Will get the LatLng object for a string
+    const stringToLatLngPlaces = function(str) {
+        return new Promise((accept, reject) =>
+            geocoder.geocode({'address': str}, function(results, status) {
+                if (status === 'OK') {
+                    return accept(results[0].geometry.location);
                 }
-            });
+                return reject(status);
+            })
+        );
+    }
 
-        });
+    const center = await stringToLatLngPlaces("swansea");
+    const map = new google.maps.Map(document.getElementById('google-map'), {
+        center: center,
+        zoom: 13
     });
+
+    const data = await fetch(endpoint).then(response => response.json());
+
+    const bindings = data.results.bindings
+        .map(it =>
+            [
+                OsGridRef.osGridToLatLon(
+                    new OsGridRef(it.Xcoord_US.value, it.Ycoord_US.value)
+                ),
+                OsGridRef.osGridToLatLon(
+                    new OsGridRef(it.Xcoord_DS.value, it.Ycoord_DS.value)
+                )
+            ]
+    )
+
+    let mapBounds = new google.maps.LatLngBounds();
+    bindings.map(it =>{
+        const pointX = new google.maps.LatLng(it[0].lat, it[0].lon);
+        const pointY = new google.maps.LatLng(it[1].lat, it[1].lon);
+
+        mapBounds.extend(pointX);
+        mapBounds.extend(pointY);
+
+        (new google.maps.Polyline({
+            path: [pointX, pointY],
+            strokeColor: randomColor()
+        })).setMap(map);
+
+    });
+
+    map.fitBounds(mapBounds);
 
 }

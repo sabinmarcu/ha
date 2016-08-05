@@ -1,8 +1,11 @@
 'use strict';
 
 var gulp = require('gulp'),
-    concat = require('gulp-concat');
-var browserSync = require('browser-sync');
+    concat = require('gulp-concat'),
+    browserSync = require('browser-sync'),
+    sourcemaps = require('gulp-sourcemaps'),
+    bower = require('gulp-bower'),
+    babel = require('gulp-babel');
 
 // Load plugins
 var $ = require('gulp-load-plugins')({
@@ -83,13 +86,27 @@ gulp.task('images', function() {
         .pipe(gulp.dest('build/images'));
 });
 
-gulp.task('concatScripts', function() {
-    return gulp.src(['src/js/maps.js'])
-            .pipe(concat('scripts.js'))
-            .on('error', $.util.log)
-            .pipe(gulp.dest('build/js'))
-            .pipe(browserSync.reload({stream: true}));
+gulp.task('bower', function() {
+    return bower('bower_components')
+        .pipe(gulp.dest('build/js'))
+        .pipe(browserSync.reload({stream: true}));
 });
+
+gulp.task('scripts', function() {
+    return gulp.src(['node_modules/babel-polyfill/dist/polyfill.js', 'src/js/**/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: ['es2015', 'stage-0']
+            // plugins: ['transform-runtime']
+        }))
+        .pipe(concat('scripts.js'))
+        .pipe(sourcemaps.write('.'))
+        .on('error', $.util.log)
+        .pipe(gulp.dest('build/js'))
+        .pipe(browserSync.reload({stream: true}));
+});
+
+gulp.task('js', ['bower', 'scripts']);
 
 
 gulp.task('browser-sync', function() {
@@ -105,7 +122,7 @@ gulp.task('watch', ['build'], function() {
     gulp.watch('src/**/*.less', ['styles']);
     gulp.watch('src/images/**/*', ['images']);
     gulp.watch('src/**/*.jade', ['views']);
-    gulp.watch('src/**/*.js', ['concatScripts']);
+    gulp.watch('src/**/*.js', ['scripts']);
 
     gulp.start('browser-sync');
 });
@@ -125,7 +142,7 @@ gulp.task('clean', function(cb) {
 });
 
 
-gulp.task('build', ['styles', 'views', 'images', 'concatScripts']);
+gulp.task('build', ['styles', 'views', 'images', 'js']);
 
 
 gulp.task('default', ['clean'], function() {

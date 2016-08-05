@@ -2,6 +2,8 @@
   "name": "package",
   "version": "0.0.0",
   "dependencies": {
-    "normalize.css": "~3.0.2"
+    "normalize.css": "~3.0.2",
+    "fetch": "^1.0.0",
+    "es6-promise": "^3.2.2"
   }
 }
