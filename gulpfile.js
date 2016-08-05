@@ -88,14 +88,17 @@ gulp.task('images', function() {
 
 gulp.task('scripts', function() {
     return concat({
-        "scripts.js": [
+        "boot.js": [
+            'node_modules/babel-polyfill/dist/polyfill.js',
+            "src/bootstrap.js",
+        ],
+        "app.js": [
             'src/js/**/*.js',
         ],
-        "vendor.js": [
-            'node_modules/babel-polyfill/dist/polyfill.js',
-            'src/vendor/**/*.js',
-        ],
-        "bower.js": bower()
+        "vendor.js": [].concat(
+            ['src/vendor/**/*.js'],
+            bower()
+        )
     })
         .pipe(sourcemaps.init())
         .pipe(babel({
