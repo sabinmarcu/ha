@@ -40,19 +40,29 @@ window.initMap = async function() {
     )
 
     let mapBounds = new google.maps.LatLngBounds();
-    bindings.map(it =>{
+    const lines = [];
+    bindings.map(it => {
         const pointX = new google.maps.LatLng(it[0].lat, it[0].lon);
         const pointY = new google.maps.LatLng(it[1].lat, it[1].lon);
 
         mapBounds.extend(pointX);
         mapBounds.extend(pointY);
 
-        (new google.maps.Polyline({
+        const line = new google.maps.Polyline({
             path: [pointX, pointY],
             strokeColor: randomColor()
-        })).setMap(map);
+        });
+        lines.push(line);
+
+        line.setMap(map);
 
     });
+
+    const larg = 2;
+    google.maps.event.addListener(map, "zoom_changed", () => {
+        const zoom = map.getZoom() * larg / 17;
+        lines.forEach(line => line.setOptions({ strokeWeight: zoom }));
+    })
 
     map.fitBounds(mapBounds);
 
